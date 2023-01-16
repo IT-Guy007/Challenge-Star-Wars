@@ -44,6 +44,7 @@ struct GroupView: View {
                             content.isShowingGroup = false
                         } label: {
                             Image(systemName: "chevron.left")
+                                .bold()
                             Text("Back")
                         }
                     }
@@ -72,6 +73,7 @@ struct GroupView: View {
                             content.isShowingGroup = false
                         } label: {
                             Image(systemName: "chevron.left")
+                                .bold()
                             Text("Back")
                         }
                     }
@@ -98,6 +100,7 @@ struct GroupView: View {
                             content.isShowingGroup = false
                         } label: {
                             Image(systemName: "chevron.left")
+                                .bold()
                             Text("Back")
                         }
                     }
@@ -124,6 +127,7 @@ struct GroupView: View {
                             content.isShowingGroup = false
                         } label: {
                             Image(systemName: "chevron.left")
+                                .bold()
                             Text("Back")
                         }
                     }
@@ -152,6 +156,7 @@ struct GroupView: View {
                             content.isShowingGroup = false
                         } label: {
                             Image(systemName: "chevron.left")
+                                .bold()
                             Text("Back")
                         }
                     }
@@ -178,6 +183,7 @@ struct GroupView: View {
                             content.isShowingGroup = false
                         } label: {
                             Image(systemName: "chevron.left")
+                                .bold()
                             Text("Back")
                         }
                     }

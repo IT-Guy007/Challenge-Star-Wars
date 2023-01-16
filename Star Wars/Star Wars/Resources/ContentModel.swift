@@ -94,6 +94,27 @@ class ContentModel: ObservableObject {
         return allPlanets.first(where: {$0.url == string})
     }
     
+    //ContentView
+    func getRandomItem() -> Any? {
+        let arrayTypes = [allFilms] as [Any]
+        let randomArray = arrayTypes.randomElement()!
+        switch randomArray {
+        case is [People]:
+            return allPeople.randomElement()
+        case is [Film]:
+            return allFilms.randomElement()
+        case is [Starship]:
+            return allStarShips.randomElement()
+        case is [Vehicle]:
+            return allVehicles.randomElement()
+        case is [Species]:
+            return allSpecies.randomElement()
+        case is [Planet]:
+            return allPlanets.randomElement()
+        default:
+            return "No item found"
+        }
+    }
     
 
 }
