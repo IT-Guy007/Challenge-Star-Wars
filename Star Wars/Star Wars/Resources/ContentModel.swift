@@ -69,6 +69,32 @@ class ContentModel: ObservableObject {
         //Start getting the resources
         task.resume()
     }
+    
+    func getPersonFromURL(string: String) -> People? {
+        return allPeople.first(where: {$0.url == string})
+    }
+    
+    func getFilmFromURL(string: String) -> Film {
+        return allFilms.first(where: {$0.url == string})!
+    }
+    
+    func getStarShipFromURL(string: String) -> Starship {
+        return allStarShips.first(where: {$0.url == string})!
+    }
+    
+    func getVehicleFromURL(string: String) -> Vehicle {
+        return allVehicles.first(where: {$0.url == string})!
+    }
+    
+    func getSpeciesFromUrl(string: String) -> Species? {
+        return allSpecies.first(where: {$0.url == string})!
+    }
+ 
+    func getPlanetFromURL(string: String) -> Planet?{
+        return allPlanets.first(where: {$0.url == string})
+    }
+    
+    
 
 }
 
