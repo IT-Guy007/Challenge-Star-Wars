@@ -96,7 +96,7 @@ class ContentModel: ObservableObject {
     
     //ContentView
     func getRandomItem() -> Any? {
-        let arrayTypes = [allFilms] as [Any]
+        let arrayTypes = [allPeople, allFilms, allStarShips, allVehicles, allSpecies, allPlanets] as [Any]
         let randomArray = arrayTypes.randomElement()!
         switch randomArray {
         case is [People]:

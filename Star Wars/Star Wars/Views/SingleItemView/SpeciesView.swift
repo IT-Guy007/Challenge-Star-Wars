@@ -8,14 +8,72 @@
 import SwiftUI
 
 struct SpeciesView: View {
+    @EnvironmentObject private var content: ContentModel
     @State var species: Species
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+        ScrollView(.vertical) {
+            VStack(alignment: .leading) {
+                Text(species.name)
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(Color("orange"))
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Lifespan: \(species.average_lifespan)")
+                            .font(.callout)
+                        Text("Height: \(species.average_height)")
+                            .font(.callout)
+                        Text("Language: \(species.language)")
+                            .font(.callout)
+                    }
+                    .frame(width: UIScreen.main.bounds.width * 0.4)
+                    
+                    VStack {
+                        Text("Designation: \(species.designation)")
+                            .font(.callout)
+                        Text("Classification: \(species.classification)")
+                            .font(.callout)
+                        if let homeworld = content.getPlanetFromURL(string: species.homeworld ?? "") {
+                            Text(homeworld.name)
+                                .font(.callout)
+                        }
+                    }
+                }
+                
+                Divider()
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Films:")
+                            .font(.title2)
+                        
+                        ForEach(species.films, id: \.self) { film in
+                            Text(content.getFilmFromURL(string: film).title)
+                        }
+                        
+                        
 
-struct SpeciesView_Previews: PreviewProvider {
-    static var previews: some View {
-        SpeciesView(species: .init(name: "Human", classification: "Primative", designation: " ", average_height: "165", skin_colors: "Varies", hair_colors: "Varies", eye_colors: "Varies", average_lifespan: "80", homeworld: "Earth", language: "Multiple", people: [], films: [], created: " ", edited: " ", url: " "))
+                    }
+                    .frame(width: UIScreen.main.bounds.width * 0.4)
+                    
+                    VStack {
+                        Text("People:")
+                            .font(.title2)
+                        
+                        ForEach(species.people, id: \.self) { person in
+                            Text(content.getPersonFromURL(string: person)?.name ?? "Unknown")
+                        }
+                        
+                    }
+                }
+                
+                Spacer()
+                HStack {Spacer()}
+            }
+            .padding()
+            
+        }
+        .background(Color("black"))
     }
 }

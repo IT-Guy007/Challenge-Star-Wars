@@ -9,13 +9,73 @@ import SwiftUI
 
 struct PlanetView: View {
     @State var planet: Planet
+    @EnvironmentObject private var content: ContentModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+        ScrollView(.vertical) {
+            VStack(alignment: .leading) {
+                Text(planet.name)
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(Color("orange"))
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Population: \(planet.population)")
+                            .font(.callout)
+                        Text("Diameter: \(planet.diameter)")
+                            .font(.callout)
+                        Text("Climate: \(planet.climate)")
+                            .font(.callout)
+                        Text("Terrain: \(planet.terrain)")
+                            .font(.callout)
+                        
+                    }
+                    .frame(width: UIScreen.main.bounds.width * 0.4)
+                    
+                    VStack {
+                        Text("Gravity: \(planet.gravity)")
+                            .font(.callout)
+                        Text("Orbital period: \(planet.orbital_period)")
+                            .font(.callout)
+                        Text("Rotation period: \(planet.rotation_period)")
+                            .font(.callout)
+                        Text("Surface water: \(planet.surface_water)")
+                            .font(.callout)
+                    }
+                }
+                
+                Divider()
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Films:")
+                            .font(.title2)
+                        
+                        ForEach(planet.films, id: \.self) { film in
+                            Text(content.getFilmFromURL(string: film).title)
+                        }
+                        
+                        
 
-struct PlanetView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlanetView(planet: .init(name: "Earth", rotation_period: "24.01H", orbital_period: "365.25", diameter: "4926KM", climate: "Cold", gravity: "8.91", terrain: "Flat", surface_water: "Windy", population: "7Bil", residents: [], films: [], created: "A long time ago", edited: "", url: ""))
+                    }
+                    .frame(width: UIScreen.main.bounds.width * 0.4)
+                    
+                    VStack {
+                        Text("People:")
+                            .font(.title2)
+                        
+                        ForEach(planet.residents, id: \.self) { resident in
+                            Text(content.getPersonFromURL(string: resident)?.name ?? "Unknown")
+                        }
+                        
+                    }
+                }
+                
+                Spacer()
+                HStack {Spacer()}
+            }
+            .padding()
+            
+        }
+        .background(Color("black"))
     }
 }

@@ -36,6 +36,7 @@ struct GroupView: View {
                             }
                         }
                     }
+                    .environmentObject(content)
                 }
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
@@ -65,6 +66,7 @@ struct GroupView: View {
                             Text("\(film.characters.count) characters")
                         }
                     }
+                    .environmentObject(content)
                 }
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
@@ -92,6 +94,7 @@ struct GroupView: View {
                             Text("\(starship.MGLT) MGLT")
                         }
                     }
+                    .environmentObject(content)
                 }
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
@@ -119,6 +122,7 @@ struct GroupView: View {
                             Text("\(vehicle.cost_in_credits) credits")
                         }
                     }
+                    .environmentObject(content)
                 }
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
@@ -148,6 +152,7 @@ struct GroupView: View {
                             Text(specie.designation)
                         }
                     }
+                    .environmentObject(content)
                 }
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
@@ -175,6 +180,7 @@ struct GroupView: View {
                             Text("\(planet.diameter) diameter")
                         }
                     }
+                    .environmentObject(content)
                 }
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
