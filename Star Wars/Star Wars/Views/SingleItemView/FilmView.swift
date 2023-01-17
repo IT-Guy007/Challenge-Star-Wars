@@ -12,7 +12,26 @@ struct FilmView: View {
     @EnvironmentObject private var content: ContentModel
     
     var body: some View {
+        
         ScrollView(.vertical) {
+            HStack {
+                Spacer()
+                Button {
+                    if content.favoFilms.contains(film) {
+                        content.favoFilms.removeAll(where: {$0 == film})
+                    } else {
+                        content.favoFilms.append(film)
+                    }
+                } label: {
+                    if content.favoFilms.contains(film) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(Color("orange"))
+                    } else {
+                        Image(systemName: "star")
+                            .foregroundColor(Color("orange"))
+                    }
+                }
+            }
             VStack(alignment: .leading) {
                 Text("Ep: \(film.episode_id): \(film.title)")
                     .font(.title)
@@ -42,7 +61,7 @@ struct FilmView: View {
                             .font(.title2)
                         
                         ForEach(film.vehicles, id: \.self) { vehicle in
-                            Text(content.getVehicleFromURL(string: vehicle).name)
+                            Text(content.getVehicleFromURL(string: vehicle)?.name ?? "")
                         }
                         
                         
@@ -67,7 +86,7 @@ struct FilmView: View {
                 Text(film.opening_crawl)
                     .font(.subheadline)
                     .multilineTextAlignment(.leading)
-                .padding()
+                    .padding()
                 
                 Spacer()
                 HStack {Spacer()}

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0A9BA62976B7BC00DD6BEB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B0A9BA82976B7BC00DD6BEB /* Localizable.strings */; };
+		1B0A9BAB2976C4DC00DD6BEB /* FavoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0A9BAA2976C4DC00DD6BEB /* FavoView.swift */; };
+		1B1606952975FE1500340A47 /* LocalizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1606942975FE1500340A47 /* LocalizationService.swift */; };
 		1B9E6C2C2974A872000207D0 /* FilmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E6C2B2974A872000207D0 /* FilmView.swift */; };
 		1B9E6C2E2974A899000207D0 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E6C2D2974A899000207D0 /* PersonView.swift */; };
 		1B9E6C302974A8A4000207D0 /* StarshipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E6C2F2974A8A4000207D0 /* StarshipView.swift */; };
@@ -24,7 +27,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B0A9BA72976B7BC00DD6BEB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1B0A9BA92976B7CF00DD6BEB /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1B0A9BAA2976C4DC00DD6BEB /* FavoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoView.swift; sourceTree = "<group>"; };
 		1B160691297596E500340A47 /* Star-Wars-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Star-Wars-Info.plist"; sourceTree = SOURCE_ROOT; };
+		1B1606942975FE1500340A47 /* LocalizationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationService.swift; sourceTree = "<group>"; };
 		1B9E6C2B2974A872000207D0 /* FilmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmView.swift; sourceTree = "<group>"; };
 		1B9E6C2D2974A899000207D0 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		1B9E6C2F2974A8A4000207D0 /* StarshipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarshipView.swift; sourceTree = "<group>"; };
@@ -107,8 +114,10 @@
 		1BA3586E2974276D00424835 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1B1606942975FE1500340A47 /* LocalizationService.swift */,
 				1BA3586C2974251000424835 /* Objects.swift */,
 				1BA3586F2974281E00424835 /* ContentModel.swift */,
+				1B0A9BA82976B7BC00DD6BEB /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -119,6 +128,7 @@
 				1B9E6C2A2974A858000207D0 /* SingleItemView */,
 				1BA358722974304700424835 /* LaunchView.swift */,
 				1BA3587629743D4800424835 /* GroupView.swift */,
+				1B0A9BAA2976C4DC00DD6BEB /* FavoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,6 +175,7 @@
 			knownRegions = (
 				en,
 				Base,
+				nl,
 			);
 			mainGroup = 1BA358522974242500424835;
 			productRefGroup = 1BA3585C2974242500424835 /* Products */;
@@ -182,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BA358662974242600424835 /* Preview Assets.xcassets in Resources */,
+				1B0A9BA62976B7BC00DD6BEB /* Localizable.strings in Resources */,
 				1BA358632974242600424835 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,9 +211,11 @@
 				1BA358612974242500424835 /* ContentView.swift in Sources */,
 				1B9E6C322974A8AF000207D0 /* VehicleView.swift in Sources */,
 				1BA358732974304700424835 /* LaunchView.swift in Sources */,
+				1B0A9BAB2976C4DC00DD6BEB /* FavoView.swift in Sources */,
 				1B9E6C342974A8B9000207D0 /* SpeciesView.swift in Sources */,
 				1BA3587729743D4800424835 /* GroupView.swift in Sources */,
 				1BA358702974281E00424835 /* ContentModel.swift in Sources */,
+				1B1606952975FE1500340A47 /* LocalizationService.swift in Sources */,
 				1B9E6C2E2974A899000207D0 /* PersonView.swift in Sources */,
 				1BA3586D2974251000424835 /* Objects.swift in Sources */,
 				1BA3585F2974242500424835 /* Star_WarsApp.swift in Sources */,
@@ -210,11 +224,24 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		1B0A9BA82976B7BC00DD6BEB /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B0A9BA72976B7BC00DD6BEB /* en */,
+				1B0A9BA92976B7CF00DD6BEB /* nl */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		1BA358672974242600424835 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -261,7 +288,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -275,6 +302,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -315,7 +343,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

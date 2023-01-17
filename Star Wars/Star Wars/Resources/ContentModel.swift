@@ -18,6 +18,14 @@ class ContentModel: ObservableObject {
     @Published var allPlanets: [Planet] = []
     
     @Published var isShowingGroup: Bool = false
+    @Published var isShowingFavoritePage: Bool = false
+    
+    @Published var favoPeople: [People] = []
+    @Published var favoFilms: [Film] = []
+    @Published var favoStarships: [Starship] = []
+    @Published var favoVehicles: [Vehicle] = []
+    @Published var favoSpecies: [Species] = []
+    @Published var favoPlanets: [Planet] = []
     
     func retrieveAllContent() {
         //Get's all the resources
@@ -74,20 +82,20 @@ class ContentModel: ObservableObject {
         return allPeople.first(where: {$0.url == string})
     }
     
-    func getFilmFromURL(string: String) -> Film {
-        return allFilms.first(where: {$0.url == string})!
+    func getFilmFromURL(string: String) -> Film? {
+        return allFilms.first(where: {$0.url == string})
     }
     
-    func getStarShipFromURL(string: String) -> Starship {
-        return allStarShips.first(where: {$0.url == string})!
+    func getStarShipFromURL(string: String) -> Starship? {
+        return allStarShips.first(where: {$0.url == string})
     }
     
-    func getVehicleFromURL(string: String) -> Vehicle {
-        return allVehicles.first(where: {$0.url == string})!
+    func getVehicleFromURL(string: String) -> Vehicle? {
+        return allVehicles.first(where: {$0.url == string})
     }
     
     func getSpeciesFromUrl(string: String) -> Species? {
-        return allSpecies.first(where: {$0.url == string})!
+        return allSpecies.first(where: {$0.url == string})
     }
  
     func getPlanetFromURL(string: String) -> Planet?{

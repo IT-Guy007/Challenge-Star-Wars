@@ -13,12 +13,20 @@ struct GroupView: View {
     
     @State var resource: Resource
     
+    @State private var searchTextPeople: String = ""
+    @State private var searchTextVehicle: String = ""
+    @State private var searchTextStarship: String = ""
+    @State private var searchTextSpecies: String = ""
+    @State private var searchTextPlanets: String = ""
+    @State private var searchTextFilm: String = ""
+    
     var body: some View {
         
         NavigationView {
             switch resource {
             case .People:
-                List(content.allPeople, id: \.self) { person in
+                // Add views for People case
+                List(searchResultsPeople, id: \.self) { person in
                     let homeworld = content.getPlanetFromURL(string: person.homeworld ?? "")?.name ?? ""
                     NavigationLink(destination: PersonView(character: person)) {
                         HStack {
@@ -38,6 +46,7 @@ struct GroupView: View {
                     }
                     .environmentObject(content)
                 }
+                .searchable(text: $searchTextPeople)
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -51,10 +60,10 @@ struct GroupView: View {
                     }
                 }
                 
-                // Add views for People case
+                
             case .Film:
                 // Add views for Film case
-                List(content.allFilms.sorted {$0.release_date < $1.release_date}, id: \.self) { film in
+                List(searchResultsFilms.sorted {$0.release_date < $1.release_date}, id: \.self) { film in
                     NavigationLink(destination: FilmView(film: film)) {
                         HStack {
                             VStack(alignment: .leading) {
@@ -67,7 +76,9 @@ struct GroupView: View {
                         }
                     }
                     .environmentObject(content)
+                    
                 }
+                .searchable(text: $searchTextFilm)
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -83,7 +94,7 @@ struct GroupView: View {
                 
             case .Starship:
                 // Add views for Starship case
-                List(content.allStarShips, id: \.self) { starship in
+                List(searchResultsStarship, id: \.self) { starship in
                     NavigationLink(destination: StarshipView(starship: starship)) {
                         HStack {
                             VStack(alignment: .leading) {
@@ -95,7 +106,9 @@ struct GroupView: View {
                         }
                     }
                     .environmentObject(content)
+                    
                 }
+                .searchable(text: $searchTextStarship)
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -111,7 +124,7 @@ struct GroupView: View {
                 
             case .Vehicle:
                 // Add views for Vehicle case
-                List(content.allVehicles, id: \.self) { vehicle in
+                List(searchResultsVehicle, id: \.self) { vehicle in
                     NavigationLink(destination: VehicleView(vehicle: vehicle)) {
                         HStack {
                             VStack(alignment: .leading) {
@@ -124,6 +137,7 @@ struct GroupView: View {
                     }
                     .environmentObject(content)
                 }
+                .searchable(text: $searchTextVehicle)
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -139,7 +153,7 @@ struct GroupView: View {
                 
             case .Species:
                 // Add views for Species case
-                List(content.allSpecies, id: \.self) { specie in
+                List(searchResultsSpecies, id: \.self) { specie in
                     
                     NavigationLink(destination: SpeciesView(species: specie)) {
                         HStack {
@@ -154,6 +168,7 @@ struct GroupView: View {
                     }
                     .environmentObject(content)
                 }
+                .searchable(text: $searchTextSpecies)
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -169,7 +184,7 @@ struct GroupView: View {
                 
             case .Planet:
                 // Add views for Planet case
-                List(content.allPlanets, id: \.self) { planet in
+                List(searchResultsPlanets, id: \.self) { planet in
                     NavigationLink(destination: PlanetView(planet: planet)) {
                         HStack {
                             VStack(alignment: .leading) {
@@ -182,6 +197,7 @@ struct GroupView: View {
                     }
                     .environmentObject(content)
                 }
+                .searchable(text: $searchTextPlanets)
                 .navigationBarTitle(Text(resource.rawValue.capitalized))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -196,6 +212,55 @@ struct GroupView: View {
                 }
             }
             
+        }
+    }
+    
+    //MARK: - Search results
+    var searchResultsPeople: [People] {
+        if searchTextPeople.isEmpty {
+            return content.allPeople
+        } else {
+            return content.allPeople.filter { $0.name.contains(searchTextPeople) }
+        }
+    }
+    
+    var searchResultsVehicle: [Vehicle] {
+        if searchTextVehicle.isEmpty {
+            return content.allVehicles
+        } else {
+            return content.allVehicles.filter { $0.name.contains(searchTextVehicle) }
+        }
+    }
+    
+    var searchResultsSpecies: [Species] {
+        if searchTextSpecies.isEmpty {
+            return content.allSpecies
+        } else {
+            return content.allSpecies.filter { $0.name.contains(searchTextSpecies) }
+        }
+    }
+    
+    var searchResultsStarship: [Starship] {
+        if searchTextStarship.isEmpty {
+            return content.allStarShips
+        } else {
+            return content.allStarShips.filter { $0.name.contains(searchTextStarship) }
+        }
+    }
+    
+    var searchResultsPlanets: [Planet] {
+        if searchTextPlanets.isEmpty {
+            return content.allPlanets
+        } else {
+            return content.allPlanets.filter { $0.name.contains(searchTextPlanets) }
+        }
+    }
+    
+    var searchResultsFilms: [Film] {
+        if searchTextFilm.isEmpty {
+            return content.allFilms
+        } else {
+            return content.allFilms.filter { $0.title.contains(searchTextFilm) }
         }
     }
 }

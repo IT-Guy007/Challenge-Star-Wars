@@ -12,6 +12,24 @@ struct PlanetView: View {
     @EnvironmentObject private var content: ContentModel
     var body: some View {
         ScrollView(.vertical) {
+            HStack {
+                Spacer()
+                Button {
+                    if content.favoPlanets.contains(planet) {
+                        content.favoPlanets.removeAll(where: {$0 == planet})
+                    } else {
+                        content.favoPlanets.append(planet)
+                    }
+                } label: {
+                    if content.favoPlanets.contains(planet) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(Color("orange"))
+                    } else {
+                        Image(systemName: "star")
+                            .foregroundColor(Color("orange"))
+                    }
+                }
+            }
             VStack(alignment: .leading) {
                 Text(planet.name)
                     .font(.title)
@@ -51,7 +69,7 @@ struct PlanetView: View {
                             .font(.title2)
                         
                         ForEach(planet.films, id: \.self) { film in
-                            Text(content.getFilmFromURL(string: film).title)
+                            Text(content.getFilmFromURL(string: film)?.title ?? "")
                         }
                         
                         

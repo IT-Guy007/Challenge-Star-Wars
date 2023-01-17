@@ -12,14 +12,17 @@ struct ContentView: View {
     
     @State private var chosenResource: Resource = .People
     @State private var randomItem: Any = ""
-    @State private var cardPosition: CGSize = CGSize(width: UIScreen.main.bounds.width, height: 0)
+    
+    //Languages
+    @AppStorage("Language") private var language = LocalizationService.shared.language
 
     var body: some View {
         if content.isShowingGroup {
             GroupView(resource: chosenResource)
                 .environmentObject(content)
-                .animation(.easeIn, value: content.isShowingGroup)
-            
+        } else if content.isShowingFavoritePage {
+            FavoView()
+                .environmentObject(content)
         } else {
             
             ScrollView(.vertical) {
@@ -36,6 +39,28 @@ struct ContentView: View {
                             .bold()
                         Spacer()
                         Button {
+                            content.isShowingFavoritePage = true
+                        } label: {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(Color("orange"))
+                                .font(.system(size: 22))
+                        }
+                        Menu {
+                            //English
+                            Button {
+                                LocalizationService.shared.language = .english_us
+                            } label: {
+                                Text("English")
+                                
+                            }
+                            
+                            //Dutch
+                            Button {
+                                LocalizationService.shared.language = .dutch
+                            } label: {
+                                Text("Dutch")
+                                
+                            }
                             
                         } label: {
                             Image(systemName: "line.3.horizontal")
@@ -49,22 +74,22 @@ struct ContentView: View {
                         HStack {
                             
                             //Droid
-                            cardView(image: "starship", subtext: "Starships", resource: .Starship)
+                            cardView(image: "starship", subtext: "Starships".localized(language), resource: .Starship)
                             
                             //person
-                            cardView(image: "person", subtext: "Characters", resource: .People)
+                            cardView(image: "person", subtext: "Characters".localized(language), resource: .People)
                             
                             //Droid
-                            cardView(image: "film", subtext: "Movie's", resource: .Film)
+                            cardView(image: "film", subtext: "Movie's".localized(language), resource: .Film)
                             
                             //Droid
-                            cardView(image: "planet", subtext: "Planet's", resource: .Planet)
+                            cardView(image: "planet", subtext: "Planet's".localized(language), resource: .Planet)
                             
                             //Droid
-                            cardView(image: "species", subtext: "Species", resource: .Species)
+                            cardView(image: "species", subtext: "Species".localized(language), resource: .Species)
                             
                             //Droid
-                            cardView(image: "vehicle", subtext: "Vehicle's", resource: .Vehicle)
+                            cardView(image: "vehicle", subtext: "Vehicle's".localized(language), resource: .Vehicle)
                             
                             
                         }
@@ -87,10 +112,7 @@ struct ContentView: View {
             //Delay in search, otherwise it would always give an empty view back
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    withAnimation(.spring(response: 0.5,dampingFraction: 0.5,blendDuration: 0.5)) {
-                        self.randomItem = self.content.getRandomItem() ?? ""
-                        self.cardPosition = .zero
-                    }
+                 self.randomItem = self.content.getRandomItem() ?? ""
                 }
             }
         }
@@ -139,7 +161,7 @@ struct ContentView: View {
         case is People.Type:
             let person = randomItem as! People
             
-            Text("Item of the moment")
+            Text("Item of the moment".localized(language))
                 .foregroundColor(Color("orange"))
                 .font(.title)
                 .bold()
@@ -152,26 +174,45 @@ struct ContentView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         
-                        Text("Height: \(person.height) cm")
+                        Text("Height: ".localized(language))
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Mass: \(person.mass) kg")
+                        + Text("\(person.height) cm")
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Birth year: \(person.birth_year)")
+                        
+                        Text("Mass: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text("\(person.mass) kg")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("Birth year: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text(person.birth_year)
                             .font(.subheadline)
                             .foregroundColor(.white)
                     }
                     
                     VStack(alignment: .leading) {
-                        Text("Gender: \(person.gender)")
+                        Text("Gender: ".localized(language))
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Films: \(person.films.count)")
+                        + Text(person.gender)
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("Films: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text("\(person.films.count)")
                             .font(.subheadline)
                             .foregroundColor(.white)
                         if let homeworld = content.getPlanetFromURL(string: person.homeworld ?? "")?.name ?? "" {
-                            Text("HomeWorld: \(homeworld)")
+                            Text("HomeWorld: ".localized(language))
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                            + Text(homeworld)
                                 .font(.subheadline)
                                 .foregroundColor(.white)
                         } else {
@@ -188,7 +229,7 @@ struct ContentView: View {
         case is Starship.Type:
             let starship = randomItem as! Starship
             
-            Text("Item of the moment")
+            Text("Item of the moment".localized(language))
                 .foregroundColor(Color("orange"))
                 .font(.title)
                 .bold()
@@ -201,22 +242,37 @@ struct ContentView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         
-                        Text("Length: \(starship.length)")
+                        Text("Length: ".localized(language))
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Model: \(starship.model)")
+                        + Text(starship.length)
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Class: \(starship.starship_class)")
+                        Text("Model: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text(starship.model)
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("Class: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text(starship.starship_class)
                             .font(.subheadline)
                             .foregroundColor(.white)
                     }
                     
                     VStack(alignment: .leading) {
-                        Text("Costs: \(starship.cost_in_credits)")
+                        Text("Costs: ".localized(language))
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Films: \(starship.films.count)")
+                        + Text(starship.cost_in_credits)
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("Films: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text("\(starship.films.count)")
                             .font(.subheadline)
                             .foregroundColor(.white)
                         Text("")
@@ -231,7 +287,7 @@ struct ContentView: View {
         case is Film.Type:
             let film = randomItem as! Film
             
-            Text("Item of the moment")
+            Text("Item of the moment".localized(language))
                 .foregroundColor(Color("orange"))
                 .font(.title)
                 .bold()
@@ -244,22 +300,37 @@ struct ContentView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         
-                        Text("Director: \(film.director)")
+                        Text("Director: ".localized(language))
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Producer: \(film.producer)")
+                        + Text(film.director)
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Release date: \(film.release_date)")
+                        Text("Producer: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text(film.producer)
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("Release date: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text(film.release_date)
                             .font(.subheadline)
                             .foregroundColor(.white)
                     }
                     
                     VStack(alignment: .leading) {
-                        Text("Episode: \(film.episode_id)")
+                        Text("Episode: ".localized(language))
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Characters: \(film.characters.count)")
+                        + Text("\(film.episode_id)")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("Characters: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text("\(film.characters.count)")
                             .font(.subheadline)
                             .foregroundColor(.white)
                         Text("")
@@ -275,7 +346,7 @@ struct ContentView: View {
         case is Planet.Type:
             let planet = randomItem as! Planet
             
-            Text("Item of the moment")
+            Text("Item of the moment".localized(language))
                 .foregroundColor(Color("orange"))
                 .font(.title)
                 .bold()
@@ -288,22 +359,37 @@ struct ContentView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         
-                        Text("Diameter: \(planet.diameter)")
+                        Text("Diameter: ".localized(language))
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Population: \(planet.population)")
+                        + Text(planet.diameter)
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Climate: \(planet.climate)")
+                        Text("Population: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text(planet.population)
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("Climate: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text(planet.climate)
                             .font(.subheadline)
                             .foregroundColor(.white)
                     }
                     
                     VStack(alignment: .leading) {
-                        Text("ResidentsType: \(planet.residents.count)")
+                        Text("ResidentsType: ".localized(language))
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Films: \(planet.films.count)")
+                        + Text("\(planet.residents.count)")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("Films: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text("\(planet.films.count)")
                             .font(.subheadline)
                             .foregroundColor(.white)
                         Text("")
@@ -318,7 +404,7 @@ struct ContentView: View {
         case is Vehicle.Type:
             let vehicle = randomItem as! Vehicle
             
-            Text("Item of the moment")
+            Text("Item of the moment".localized(language))
                 .foregroundColor(Color("orange"))
                 .font(.title)
                 .bold()
@@ -331,22 +417,37 @@ struct ContentView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         
-                        Text("Model: \(vehicle.model) cm")
+                        Text("Model: ".localized(language))
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Length: \(vehicle.length) kg")
+                        + Text("\(vehicle.model) cm")
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Crew size: \(vehicle.crew)")
+                        Text("Length: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text("\(vehicle.length) kg")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("Crew size: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text(vehicle.crew)
                             .font(.subheadline)
                             .foregroundColor(.white)
                     }
                     
                     VStack(alignment: .leading) {
-                        Text("Cost: \(vehicle.cost_in_credits)")
+                        Text("Cost: ".localized(language))
                             .font(.subheadline)
                             .foregroundColor(.white)
-                        Text("Films: \(vehicle.films.count)")
+                        + Text(vehicle.cost_in_credits)
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        Text("Films: ".localized(language))
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text("\(vehicle.films.count)")
                             .font(.subheadline)
                             .foregroundColor(.white)
                         Text("")
@@ -360,7 +461,7 @@ struct ContentView: View {
             .shadow(radius: 5,x: 0, y: 5)
         case is Species.Type:
             let species = randomItem as! Species
-        Text("Item of the moment")
+            Text("Item of the moment".localized(language))
             .foregroundColor(Color("orange"))
             .font(.title)
             .bold()
@@ -373,26 +474,44 @@ struct ContentView: View {
             HStack {
                 VStack(alignment: .leading) {
                     
-                    Text("Language: \(species.language) cm")
+                    Text("Language: ")
                         .font(.subheadline)
                         .foregroundColor(.white)
-                    Text("Designation: \(species.designation) kg")
+                    + Text("\(species.language) cm")
                         .font(.subheadline)
                         .foregroundColor(.white)
-                    Text("Height: \(species.average_height)")
+                    Text("Designation: ")
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                    + Text("\(species.designation) kg")
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                    Text("Height: ")
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                    + Text(species.average_height)
                         .font(.subheadline)
                         .foregroundColor(.white)
                 }
                 
                 VStack(alignment: .leading) {
-                    Text("Lifespan: \(species.average_lifespan)")
+                    Text("Lifespan: ")
                         .font(.subheadline)
                         .foregroundColor(.white)
-                    Text("Films: \(species.films.count)")
+                    + Text(species.average_lifespan)
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                    Text("Films: ")
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                    + Text("\(species.films.count)")
                         .font(.subheadline)
                         .foregroundColor(.white)
                     if let homeworld = content.getPlanetFromURL(string: species.homeworld ?? "")?.name ?? "" {
-                        Text("HomeWorld: \(homeworld)")
+                        Text("HomeWorld: )")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                        + Text(homeworld)
                             .font(.subheadline)
                             .foregroundColor(.white)
                     } else {

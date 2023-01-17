@@ -13,6 +13,24 @@ struct StarshipView: View {
     
     var body: some View {
         ScrollView(.vertical) {
+            HStack {
+                Spacer()
+                Button {
+                    if content.favoStarships.contains(starship) {
+                        content.favoStarships.removeAll(where: {$0 == starship})
+                    } else {
+                        content.favoStarships.append(starship)
+                    }
+                } label: {
+                    if content.favoStarships.contains(starship) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(Color("orange"))
+                    } else {
+                        Image(systemName: "star")
+                            .foregroundColor(Color("orange"))
+                    }
+                }
+            }
             VStack(alignment: .leading) {
                 Text(starship.name)
                     .font(.title)
@@ -51,7 +69,7 @@ struct StarshipView: View {
                             .font(.title2)
                         
                         ForEach(starship.films, id: \.self) { film in
-                            Text(content.getFilmFromURL(string: film).title)
+                            Text(content.getFilmFromURL(string: film)?.title ?? "")
                         }
 
                     }

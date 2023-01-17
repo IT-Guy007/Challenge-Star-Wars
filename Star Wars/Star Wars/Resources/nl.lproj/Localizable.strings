@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  Star Wars
+
+  Created by Jeroen den Otter on 17/01/2023.
+  
+*/
+"Starships" = "Sterrenschip";
+"Characters" = "Karakters";
+"Movie's" = "Film's";
+"Planet" = "Planeten";
+"Species" = "Soorten";
+"Vehicle" = "Voertuigen";
+"Item of the moment" = "Item van het moment";
+"Height: " = "Lengte: ";
+"Mass: " = "Gewicht: ";
+"Birth year: " = "Geboorte jaar: ";
+"Gender: " = "Gender: ";
+"Films: " = "Films: ";
+"HomeWorld: Thuiswereld: ";
+"Length: " = "Lengte: ";
+"Model: " = "Model: ";
+"Class: " = "Classificatie: ";
+"Episode: " = "Aflevering: ";
+"Director: " = "Regisseur: ";
+"Producer: " = "Producent: ";
+"Release date: " = "Datum van publicatie: ";
+"Diameter: " = "Diameter: ";
+"Population: " = "Populatie: ";
+"Climate: " = "Klimaat: ";
+"ResidentsType: " = "BewonersType: ";
+"Crew size: " = "Crew grootte: ";
+"Language: " = "Taal: ";
+"Designation: " = "Aanwijzing: ";
+"Lifespan: " = "Levensduur: ";

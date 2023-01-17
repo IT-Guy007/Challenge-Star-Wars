@@ -13,6 +13,24 @@ struct VehicleView: View {
     
     var body: some View {
         ScrollView(.vertical) {
+            HStack {
+                Spacer()
+                Button {
+                    if content.favoVehicles.contains(vehicle) {
+                        content.favoVehicles.removeAll(where: {$0 == vehicle})
+                    } else {
+                        content.favoVehicles.append(vehicle)
+                    }
+                } label: {
+                    if content.favoVehicles.contains(vehicle) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(Color("orange"))
+                    } else {
+                        Image(systemName: "star")
+                            .foregroundColor(Color("orange"))
+                    }
+                }
+            }
             VStack(alignment: .leading) {
                 Text(vehicle.name)
                     .font(.title)
@@ -51,7 +69,7 @@ struct VehicleView: View {
                             .font(.title2)
                         
                         ForEach(vehicle.films, id: \.self) { film in
-                            Text(content.getFilmFromURL(string: film).title)
+                            Text(content.getFilmFromURL(string: film)?.title ?? "")
                         }
 
                     }

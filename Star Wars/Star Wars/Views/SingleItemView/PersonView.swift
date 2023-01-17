@@ -13,6 +13,24 @@ struct PersonView: View {
     
     var body: some View {
         ScrollView(.vertical) {
+            HStack {
+                Spacer()
+                Button {
+                    if content.favoPeople.contains(character) {
+                        content.favoPeople.removeAll(where: {$0 == character})
+                    } else {
+                        content.favoPeople.append(character)
+                    }
+                } label: {
+                    if content.favoPeople.contains(character) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(Color("orange"))
+                    } else {
+                        Image(systemName: "star")
+                            .foregroundColor(Color("orange"))
+                    }
+                }
+            }
             VStack(alignment: .leading) {
                 Text(character.name)
                     .font(.title)
@@ -47,14 +65,14 @@ struct PersonView: View {
                             .font(.title2)
                         
                         ForEach(character.films, id: \.self) { film in
-                            Text(content.getFilmFromURL(string: film).title)
+                            Text(content.getFilmFromURL(string: film)?.title ?? "")
                         }
                         
                         Text("Vehicles:")
                             .font(.title2)
                         
                         ForEach(character.vehicles, id: \.self) { vehicle in
-                            Text(content.getVehicleFromURL(string: vehicle).name)
+                            Text(content.getVehicleFromURL(string: vehicle)?.name ?? "")
                         }
 
                     }
@@ -65,7 +83,7 @@ struct PersonView: View {
                             .font(.title2)
                         
                         ForEach(character.starships, id: \.self) { starship in
-                            Text(content.getStarShipFromURL(string: starship).name)
+                            Text(content.getStarShipFromURL(string: starship)?.name ?? "")
                         }
                         
                         Text("Species:")

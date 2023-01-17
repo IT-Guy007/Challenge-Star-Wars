@@ -13,6 +13,24 @@ struct SpeciesView: View {
     
     var body: some View {
         ScrollView(.vertical) {
+            HStack {
+                Spacer()
+                Button {
+                    if content.favoSpecies.contains(species) {
+                        content.favoSpecies.removeAll(where: {$0 == species})
+                    } else {
+                        content.favoSpecies.append(species)
+                    }
+                } label: {
+                    if content.favoSpecies.contains(species) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(Color("orange"))
+                    } else {
+                        Image(systemName: "star")
+                            .foregroundColor(Color("orange"))
+                    }
+                }
+            }
             VStack(alignment: .leading) {
                 Text(species.name)
                     .font(.title)
@@ -49,7 +67,7 @@ struct SpeciesView: View {
                             .font(.title2)
                         
                         ForEach(species.films, id: \.self) { film in
-                            Text(content.getFilmFromURL(string: film).title)
+                            Text(content.getFilmFromURL(string: film)?.title ?? "")
                         }
                         
                         
